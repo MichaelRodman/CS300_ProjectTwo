@@ -10,24 +10,6 @@ The goal of these projects was to design efficient algorithms and use appropriat
 
 ---
 
-## How to Build and Run
-
-### Option A: g++ (single file command)
-# Adjust file names as needed if you have multiple CPP files
-g++ -std=c++17 -Iinclude -o course_planner src/*.cpp
-
-# Run the program
-./course_planner
-
-### Option B: CMake
-# From the repo root:
-mkdir build && cd build
-cmake ..
-cmake --build .
-./course_planner
-
----
-
 ## Reflection
 
 ### What problem were you solving?
