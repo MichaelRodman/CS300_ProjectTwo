@@ -33,3 +33,52 @@ These projects improved how I structure my programs. I now focus more on readabi
 Course: CS 300 – Data Structures and Algorithms  
 Institution: Southern New Hampshire University  
 Date: October 2025  
+
+---
+
+---
+## Project Two Details (Course Planner)
+
+## PROJECT TWO – Course Planner
+This program allows academic advisors at ABC University (ABCU) to view and organize course information using different data structures.  
+The user can:
+  1. Load course data from a CSV file  
+  2. Display all courses in alphanumeric order  
+  3. Search for a specific course and view its prerequisites
+
+## Files Included
+src/
+    main.cpp
+    Utils.cpp
+    VectorStore.cpp
+    HashTable.cpp
+    BinarySearchTree.cpp
+
+include/
+    Course.hpp
+    Utils.hpp
+    VectorStore.hpp
+    HashTable.hpp
+    BinarySearchTree.hpp
+
+data/
+    courses.csv
+
+.vscode/
+    launch.json
+    tasks.json
+
+## How To Run
+1. Open the project folder in Visual Studio Code.  
+2. Build using the `g++` build task or terminal command:
+      g++ -std=c++17 -Wall -Wextra -O2 -I include src/*.cpp -o ProjectTwo.exe
+3. Run the program:
+      ./ProjectTwo.exe
+4. When prompted for a file path, enter:
+      data/courses.csv
+
+## Notes
+- The CSV file must be properly formatted and placed in the data/ folder.
+- Hardcoded paths are avoided per best practices.
+- The README file serves as documentation for how to compile and test this project.
+  
