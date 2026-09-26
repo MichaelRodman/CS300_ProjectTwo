@@ -9,6 +9,7 @@
 #include "VectorStore.hpp"
 #include "HashTable.hpp"
 #include "BinarySearchTree.hpp"
+#include "PrerequisiteGraph.hpp"
 
 using namespace std;
 
@@ -17,6 +18,7 @@ static void showMenu() {
     cout << "  1. Load Data Structure\n";
     cout << "  2. Print Course List\n";
     cout << "  3. Print Course\n";
+    cout << "  4. Print Prerequisite Order\n";
     cout << "  9. Exit\n";
     cout << "Select an option: ";
 }
@@ -43,6 +45,7 @@ int main() {
     VectorStore vstore;
     HashTable htable;
     BinarySearchTree bst;
+    PrerequisiteGraph graph;
     vector<Course> allCourses;
     bool loaded = false;
 
@@ -81,6 +84,7 @@ int main() {
                 vstore.build(allCourses);
                 htable.build(allCourses);
                 bst.build(allCourses);
+                graph.build(allCourses);
                 loaded = true;
 
                 cout << "Data loaded successfully: " << allCourses.size() << " courses.\n\n";
@@ -115,6 +119,38 @@ int main() {
                 } else {
                     printCourse(c, htable);
                 }
+                break;
+            }
+
+            case 4: {
+                if (!loaded) {
+                    cout << "Please load the data first (Option 1).\n";
+                    break;
+                }
+
+                if (graph.hasCycle()) {
+                    cout << "\nUnable to create a prerequisite order because "
+                         << "the course data contains a cycle.\n\n";
+                    break;
+                }
+
+                vector<string> ordering = graph.topologicalSort();
+
+                cout << "\nPrerequisite-safe course order:\n\n";
+
+                for (const string& courseNumber : ordering) {
+                    Course course = htable.get(courseNumber);
+
+                    cout << courseNumber;
+
+                    if (!course.courseName.empty()) {
+                        cout << ", " << course.courseName;
+                    }
+
+                    cout << '\n';
+                }
+
+                cout << '\n';
                 break;
             }
 
