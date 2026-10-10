@@ -43,6 +43,7 @@ src/
 docs/
   demo-load.jpg
   demo-sorted.jpg
+```
 
 ---
 
@@ -57,6 +58,9 @@ For the CS 499 Computer Science Capstone, this project was enhanced with a direc
 - Detects circular prerequisite dependencies and prevents invalid course ordering
 - Preserves the original binary search tree, hash table, and course lookup functionality
 - Includes a controlled cycle-test dataset in `data/courses_cycle.csv`
+- Validates prerequisite references and identifies courses that depend on missing course IDs
+- Includes a missing-prerequisite test dataset in `data/courses_missing.csv`
+
 
 ### Algorithm Design
 
@@ -78,3 +82,22 @@ where:
 - `E` is the number of prerequisite relationships
 
 This approach is efficient because each vertex and prerequisite edge is processed only once during traversal.
+
+
+### Testing and Validation
+
+The enhanced Course Planner was compiled using C++17 with additional compiler warnings enabled. Compilation completed successfully without errors or warnings.
+
+The following manual tests were completed:
+
+1. **Normal Course Ordering:** Loaded `data/courses.csv` and verified that the program generated a valid prerequisite-safe course order.
+
+2. **Circular Dependency Detection:** Loaded `data/courses_cycle.csv` and verified that the program detected the circular dependency and refused to generate an invalid course order.
+
+3. **Missing Prerequisite Validation:** Loaded `data/courses_missing.csv`, which intentionally references the nonexistent course `CSCI999`. The program correctly identified the missing prerequisite and displayed an appropriate error message instead of reporting a cycle.
+
+These tests confirmed that the new validation works while preserving the original graph functionality.
+
+### Instructor Feedback
+
+Following the initial enhancement, Professor Sanford recommended additional testing for missing or invalid prerequisite references. I incorporated this feedback by adding prerequisite-reference validation, a dedicated test dataset, and clearer error reporting. This improvement helps distinguish missing course data from actual circular dependencies.

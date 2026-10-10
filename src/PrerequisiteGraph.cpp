@@ -4,6 +4,7 @@
 void PrerequisiteGraph::build(const std::vector<Course>& courses) {
     adjacency.clear();
     indegree.clear();
+    missingPrerequisites.clear();
 
     // Create one graph node for every course.
     for (const Course& course : courses) {
@@ -18,6 +19,14 @@ void PrerequisiteGraph::build(const std::vector<Course>& courses) {
     // and E is the total number of prerequisite relationships.
     for (const Course& course : courses) {
         for (const std::string& prerequisite : course.prerequisites) {
+            // Verify that the prerequisite exists in the loaded course data.
+            if (indegree.find(prerequisite) == indegree.end()) {
+               missingPrerequisites.push_back(
+                   course.courseNumber + " requires missing prerequisite " + prerequisite
+               );
+               continue;
+            }
+
             adjacency[prerequisite].push_back(course.courseNumber);
             ++indegree[course.courseNumber];
         }
@@ -77,4 +86,9 @@ bool PrerequisiteGraph::hasCycle() const {
     // prevents all vertices from being processed.
     // Time complexity: O(V + E).
     return topologicalSort().empty();
+}
+
+
+const std::vector<std::string>& PrerequisiteGraph::getMissingPrerequisites() const {
+    return missingPrerequisites;
 }

@@ -128,6 +128,22 @@ int main() {
                     break;
                 }
 
+
+                const auto& missing = graph.getMissingPrerequisites();
+
+                if (!missing.empty()) {
+                    cout << "\nUnable to create a prerequisite order because "
+                         << "some prerequisites are missing from the course data:\n";
+
+                    for (const string& issue : missing) {
+                        cout << "  - " << issue << '\n';
+                    }
+
+                    cout << '\n';
+                    break;
+                }
+
+
                 if (graph.hasCycle()) {
                     cout << "\nUnable to create a prerequisite order because "
                          << "the course data contains a cycle.\n\n";

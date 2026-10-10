@@ -20,9 +20,14 @@ public:
     // Returns an empty vector if a cycle exists.
     std::vector<std::string> topologicalSort() const;
 
+    // Returns prerequisite references that do not exist in the course data.
+    const std::vector<std::string>& getMissingPrerequisites() const;
+
 private:
     std::unordered_map<std::string, std::vector<std::string>> adjacency;
     std::unordered_map<std::string, int> indegree;
+
+    std::vector<std::string> missingPrerequisites;
 };
 
 #endif // PREREQUISITE_GRAPH_HPP
